@@ -1,33 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using Simplic.Flow;
+using System;
+using System.Collections.Generic;
 using System.Linq;
-using Simplic.Flow;
 
 namespace Simplic.Ftp.Flow
 {
-    /// <summary>
-    /// Node to get the directory content from a ftp server
-    /// </summary>
-    [ActionNodeDefinition(Name = "GetAllFilesFromFtpDirectory", DisplayName = "Get all files form ftp directory", Category = "FTP")]
-    public class GetAllFilesFromFtpDirectoryNode : ActionNode
+    [ActionNodeDefinition(Name = nameof(DownloadFileNode), DisplayName = "Download file form ftp directory", Category = "FTP")]
+    public class DownloadFileNode : ActionNode
     {
         private IFtpServerConfigurationService ftpServerService;
         private IFtpService ftpService;
         private Dictionary<string, IFtpService> serviceCache;
 
-        public GetAllFilesFromFtpDirectoryNode()
-        {
-            serviceCache = new Dictionary<string, IFtpService>();
-        }
-
-        public override string Name => nameof(GetAllFilesFromFtpDirectoryNode);
-
-        public override string FriendlyName => nameof(GetAllFilesFromFtpDirectoryNode);
 
         public override bool Execute(IFlowRuntimeService runtime, DataPinScope scope)
         {
             if (ftpServerService == null)
                 ftpServerService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IFtpServerConfigurationService>();
-            
+
             var servername = scope.GetValue<string>(InPinServer);
             var server = ftpServerService.GetByName(servername);
             if (serviceCache.Keys.Contains(server.Type.ToString()))
@@ -37,21 +27,25 @@ namespace Simplic.Ftp.Flow
                 ftpService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IFtpService>(server.Type.ToString());
                 serviceCache.Add(server.Type.ToString(), ftpService);
             }
-          
-            var dir = ftpService.GetDirectoryContent(server);
-
-            scope.SetValue(OutPinDirectory, dir);
+            var filename = scope.GetValue<string>(InPinFileName);
+            var file = ftpService.DownloadFile(server, filename);
+            scope.SetValue(OutPinFile, file);
             runtime.EnqueueNode(OutNodeSuccess, scope);
 
             return true;
-
         }
+
+
+
+        public override string Name => nameof(DownloadFileNode);
+
+        public override string FriendlyName => nameof(DownloadFileNode);
 
         [FlowPinDefinition(DisplayName = "Success", Name = "OutNodeSuccess", PinDirection = PinDirection.Out)]
         public ActionNode OutNodeSuccess { get; set; }
 
         [DataPinDefinition(
-            Id = "45FA0352-8F9D-42EC-9CE1-8FF27CBE5565",
+            Id = "B70916E1-7E06-4D75-9334-5652624313DC",
             ContainerType = DataPinContainerType.Single,
             Direction = PinDirection.In,
             Name = "InPinServer",
@@ -60,12 +54,21 @@ namespace Simplic.Ftp.Flow
         public DataPin InPinServer { get; set; }
 
         [DataPinDefinition(
-            Id = "B099730A-5A72-47AD-B7F2-A43A4283A9BA",
+            Id = "E611D837-F95C-4BFF-BFCE-743654BC2640",
+            ContainerType = DataPinContainerType.Single,
+            Direction = PinDirection.In,
+            Name = "InPinFileName",
+            DisplayName = "Filename",
+            DataType = typeof(string))]
+        public DataPin InPinFileName { get; set; }
+
+        [DataPinDefinition(
+            Id = "14248A85-9D95-41E3-A460-0C6E1B5D397B",
             ContainerType = DataPinContainerType.Single,
             Direction = PinDirection.Out,
-            Name = "OutPinDirectory",
-            DisplayName = "Directory",
-            DataType = typeof(List<string>))]
-        public DataPin OutPinDirectory { get; set; }
+            Name = "OutPinFile",
+            DisplayName = "File",
+            DataType = typeof(byte[]))]
+        public DataPin OutPinFile { get; set; }
     }
 }

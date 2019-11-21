@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Simplic.Ftp
 {
-    public class FtpServer
+    public class FtpServerConfiguration
     {
         public Guid Guid { get; set; }
 
@@ -19,5 +19,9 @@ namespace Simplic.Ftp
         public string Password { get; set; }
 
         public bool Active { get; set; }
+
+        public string GroupName { get; set; }
+
+        public FtpServerConfigurationType Type { get; set; }
     }
 }

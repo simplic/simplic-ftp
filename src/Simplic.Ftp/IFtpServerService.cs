@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Simplic.Ftp
 {
-    public interface IFtpServerService : IFtpServerRepository
+    public interface IFtpServerConfigurationService : IFtpServerConfigurationRepository
     {
 
     }

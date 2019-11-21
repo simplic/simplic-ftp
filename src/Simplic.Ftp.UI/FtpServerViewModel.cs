@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace Simplic.Ftp.UI
 {
-    public class FtpServerViewModel : ExtendableViewModel, IWindowViewModel<FtpServer>
+    public class FtpServerViewModel : ExtendableViewModel, IWindowViewModel<FtpServerConfiguration>
     {
-        public void Initialize(FtpServer model)
+        public void Initialize(FtpServerConfiguration model)
         {
             Model = model;
         }
 
 
-        public FtpServer Model { get; set; }
+        public FtpServerConfiguration Model { get; set; }
 
         public string InternalName { get => Model.InternalName; set => PropertySetter(value, newValue => { Model.InternalName = newValue; }); }
 
@@ -27,5 +27,18 @@ namespace Simplic.Ftp.UI
         public string Password { get => Model.Password; set => PropertySetter(value, newValue => { Model.Password = newValue; }); }
 
         public bool Active { get => Model.Active; set => PropertySetter(value, newValue => { Model.Active = newValue; }); }
+
+        public string GroupName { get => Model.GroupName; set => PropertySetter(value, newValue => { Model.GroupName = newValue; }); }
+
+        public FtpServerConfigurationType Type { get => Model.Type; set => PropertySetter(value, newValue => { Model.Type = newValue; }); }
+
+        public Dictionary<FtpServerConfigurationType, string> TypeSource
+        {
+            get => new Dictionary<FtpServerConfigurationType, string>
+            {
+                { FtpServerConfigurationType.Ftp, "FTP"},
+                {FtpServerConfigurationType.Sftp, "SFTP" }
+            };
+        }
     }
 }

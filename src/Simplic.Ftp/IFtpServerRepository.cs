@@ -1,10 +1,15 @@
 ﻿using Simplic.Data;
 using System;
+using System.Collections.Generic;
 
 namespace Simplic.Ftp
 {
-    public interface IFtpServerRepository : IRepositoryBase<Guid,FtpServer>
+    public interface IFtpServerConfigurationRepository : IRepositoryBase<Guid,FtpServerConfiguration>
     {
-        FtpServer GetByName(string name);
+        FtpServerConfiguration GetByName(string name);
+
+        IEnumerable<FtpServerConfiguration> GetActiveByGroupName(string groupName);
+
+        IEnumerable<FtpServerConfiguration> GetAllActive();
     }
 }

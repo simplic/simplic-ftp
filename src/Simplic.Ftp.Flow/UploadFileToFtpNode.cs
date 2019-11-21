@@ -1,37 +1,40 @@
 ﻿using Simplic.Flow;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Simplic.Ftp.Flow
 {
     [ActionNodeDefinition(Name = nameof(UploadFileToFtpNode), DisplayName = "Uplad file to ftp server", Category = "FTP")]
     public class UploadFileToFtpNode : ActionNode
     {
-        private IFtpServerService ftpServerService;
+        private IFtpServerConfigurationService ftpServerService;
+        private IFtpService ftpService;
+        private Dictionary<string, IFtpService> serviceCache;
+
+        public UploadFileToFtpNode()
+        {
+            serviceCache = new Dictionary<string, IFtpService>();
+        }
 
         public override bool Execute(IFlowRuntimeService runtime, DataPinScope scope)
         {
             if (ftpServerService == null)
-                ftpServerService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IFtpServerService>();
+                ftpServerService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IFtpServerConfigurationService>();
             var servername = scope.GetValue<string>(InPinServer);
             var server = ftpServerService.GetByName(servername);
-            var request = (FtpWebRequest)WebRequest.Create(server.URI);
-            request.Method = WebRequestMethods.Ftp.UploadFile;
-            request.Credentials = new NetworkCredential(server.Username, server.Password);
-            var file = scope.GetValue<byte[]>(InPinFile);
-            request.ContentLength = file.Length;
-
-            using (Stream requestStream = request.GetRequestStream())
+            if (serviceCache.Keys.Contains(server.Type.ToString()))
+                ftpService = serviceCache[server.Type.ToString()];
+            else
             {
-                requestStream.Write(file, 0, file.Length);
+                ftpService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IFtpService>(server.Type.ToString());
+                serviceCache.Add(server.Type.ToString(), ftpService);
             }
 
-            runtime.EnqueueNode(OutNodeSuccess,scope);
+            var file = scope.GetValue<byte[]>(InPinFile);
+
+            ftpService.UploadFile(server, file);
+
+            runtime.EnqueueNode(OutNodeSuccess, scope);
             return true;
         }
 

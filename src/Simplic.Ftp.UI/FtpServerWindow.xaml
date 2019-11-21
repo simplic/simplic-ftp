@@ -7,6 +7,39 @@
              mc:Ignorable="d" 
              Height="450" Width="800" Title="FTP Server bearbeiten">
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Content="Name" Grid.Row="0" Grid.Column="0" Margin="3"/>
+        <TextBox Text="{Binding InternalName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="1" Margin="3"/>
+
+        <Label Content="Gruppe" Grid.Row="0" Grid.Column="2" Margin="3"/>
+        <TextBox Text="{Binding GroupName , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="3" Margin="3"/>
+
+        <Label Content="Uri" Grid.Row="1" Grid.Column="0" Margin="3"/>
+        <TextBox Text="{Binding URI, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="3"/>
+
+        <Label Content="Username" Grid.Row="2" Grid.Column="0" Margin="3"/>
+        <TextBox Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="1" Margin="3"/>
+
+        <Label Content="Passwort" Grid.Row="2" Grid.Column="2" Margin="3"/>
+        <TextBox Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="3" Margin="3"/>
+
+        <CheckBox Content="Aktiv" IsChecked="{Binding Active, Mode=TwoWay}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="3"/>
+
+        <Label Content="Typ" Grid.Row="3" Grid.Column="2" Margin="3"/>
+        <ComboBox ItemsSource="{Binding Path=TypeSource}" SelectedValue="{Binding Type, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                          DisplayMemberPath="Value" SelectedValuePath="Key"
+                            Grid.Row="3" Grid.Column="3" Margin="3"/>
     </Grid>
 </local:BaseFtpServerWindow>
