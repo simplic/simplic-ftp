@@ -12,6 +12,10 @@ namespace Simplic.Ftp.Flow
         private IFtpService ftpService;
         private Dictionary<string, IFtpService> serviceCache;
 
+        public DownloadFileNode()
+        {
+            serviceCache = new Dictionary<string, IFtpService>();
+        }
 
         public override bool Execute(IFlowRuntimeService runtime, DataPinScope scope)
         {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Simplic.Ftp.Flow
 {
-    [ActionNodeDefinition(Name = nameof(GetActiveServerNode), DisplayName = "Download file form ftp directory", Category = "FTP")]
+    [ActionNodeDefinition(Name = nameof(GetActiveServerNode), DisplayName = "Get Active Ftp Servers", Category = "FTP")]
     public class GetActiveServerNode : ActionNode
     {
         private IFtpServerConfigurationService ftpServerConfigurationService;

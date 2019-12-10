@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Simplic.Ftp.Flow
 {
-    [ActionNodeDefinition(Name = nameof(UploadFileToFtpNode), DisplayName = "Uplad file to ftp server", Category = "FTP")]
+    [ActionNodeDefinition(Name = nameof(UploadFileToFtpNode), DisplayName = "Upload file to ftp server", Category = "FTP")]
     public class UploadFileToFtpNode : ActionNode
     {
         private IFtpServerConfigurationService ftpServerService;
@@ -31,8 +31,10 @@ namespace Simplic.Ftp.Flow
             }
 
             var file = scope.GetValue<byte[]>(InPinFile);
+            var path = scope.GetValue<string>(InPinPath);
+            var fileName = scope.GetValue<string>(InPinFileName);
 
-            ftpService.UploadFile(server, file);
+            ftpService.UploadFile(server, file, path, fileName);
 
             runtime.EnqueueNode(OutNodeSuccess, scope);
             return true;
@@ -64,5 +66,23 @@ namespace Simplic.Ftp.Flow
             DisplayName = "File",
             DataType = typeof(byte[]))]
         public DataPin InPinFile { get; set; }
+
+        [DataPinDefinition(
+            Id = "B0F691AE-E483-411B-ADD2-18E7938F3176",
+            ContainerType = DataPinContainerType.Single,
+            Direction = PinDirection.In,
+            Name = "InPinFileName",
+            DisplayName = "Filename",
+            DataType = typeof(string))]
+        public DataPin InPinFileName { get; set; }
+
+        [DataPinDefinition(
+            Id = "0A750D38-446A-4E0C-970A-915D93DF6AD8",
+            ContainerType = DataPinContainerType.Single,
+            Direction = PinDirection.In,
+            Name = "InPinPath",
+            DisplayName = "Path",
+            DataType = typeof(byte[]))]
+        public DataPin InPinPath { get; set; }
     }
 }

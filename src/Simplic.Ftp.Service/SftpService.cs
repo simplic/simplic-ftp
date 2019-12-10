@@ -41,13 +41,13 @@ namespace Simplic.Ftp.Service
             }
         }
 
-        public IList<string> GetDirectoryContent(FtpServerConfiguration serverConfiguration)
+        public IList<string> GetDirectoryContent(FtpServerConfiguration serverConfiguration, string directory)
         {
             var filenames = new List<string>();
             using (SftpClient sftp = new SftpClient(serverConfiguration.URI, serverConfiguration.Username, serverConfiguration.Password))
             {
                 sftp.Connect();
-                var files = sftp.ListDirectory("");
+                var files = sftp.ListDirectory(directory);
                 foreach (var file in files)
                 {
                     filenames.Add(file.Name);
@@ -68,7 +68,7 @@ namespace Simplic.Ftp.Service
             return true;
         }
 
-        public bool UploadFile(FtpServerConfiguration serverConfiguration, byte[] file)
+        public bool UploadFile(FtpServerConfiguration serverConfiguration, byte[] file, string path, string fileName)
         {
             using (SftpClient sftp = new SftpClient(serverConfiguration.URI, serverConfiguration.Username, serverConfiguration.Password))
             {
@@ -79,7 +79,7 @@ namespace Simplic.Ftp.Service
                     {
                         bw.Write(file);
                     }
-                    sftp.UploadFile(fs, "");
+                    sftp.UploadFile(fs, path);
                 }
                 sftp.Disconnect();
             }

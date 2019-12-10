@@ -25,8 +25,8 @@ namespace Simplic.PlugIn.Ftp
             container.RegisterType<IFtpServerConfigurationRepository, FtpServerConfigurationRepository>();
             container.RegisterType<IFtpServerConfigurationService, FtpServerConfigurationService>();
 
-            container.RegisterType<IFtpService, FtpService>("FTP");
-            container.RegisterType<IFtpService, SftpService>("SFTP");
+            container.RegisterType<IFtpService, FtpService>("Ftp");
+            container.RegisterType<IFtpService, SftpService>("Sftp");
             container.RegisterType<IFtpServerWindow, FtpServerWindow>();
 
             container.RegisterType<INodeResolver, GenericNodeResolver<DeleteFileFromFtpServerNode>>(nameof(DeleteFileFromFtpServerNode));
@@ -43,7 +43,7 @@ namespace Simplic.PlugIn.Ftp
     /// <summary>
     /// Root PlugIn class
     /// </summary>
-    [PlugInDesc("Simplic Ftp", "1.0.19.1120", "D02206F4-26CD-4026-8B4A-81BFF978A0C2")]
+    [PlugInDesc("Simplic Ftp", "1.0.119.1202", "D02206F4-26CD-4026-8B4A-81BFF978A0C2")]
     public class Init
     {
         /// <summary>

@@ -7,7 +7,7 @@ namespace Simplic.Ftp.Flow
     /// <summary>
     /// Node to get the directory content from a ftp server
     /// </summary>
-    [ActionNodeDefinition(Name = "GetAllFilesFromFtpDirectory", DisplayName = "Get all files form ftp directory", Category = "FTP")]
+    [ActionNodeDefinition(Name = "GetAllFilesFromFtpDirectoryNode", DisplayName = "Get all files form ftp directory", Category = "FTP")]
     public class GetAllFilesFromFtpDirectoryNode : ActionNode
     {
         private IFtpServerConfigurationService ftpServerService;
@@ -37,8 +37,8 @@ namespace Simplic.Ftp.Flow
                 ftpService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IFtpService>(server.Type.ToString());
                 serviceCache.Add(server.Type.ToString(), ftpService);
             }
-          
-            var dir = ftpService.GetDirectoryContent(server);
+            var directory = scope.GetValue<string>(InPinDirectory);
+            var dir = ftpService.GetDirectoryContent(server, directory);
 
             scope.SetValue(OutPinDirectory, dir);
             runtime.EnqueueNode(OutNodeSuccess, scope);
@@ -58,6 +58,15 @@ namespace Simplic.Ftp.Flow
             DisplayName = "Server",
             DataType = typeof(string))]
         public DataPin InPinServer { get; set; }
+
+        [DataPinDefinition(
+            Id = "202B5F61-4989-4720-A8AF-78BA746750F9",
+            ContainerType = DataPinContainerType.Single,
+            Direction = PinDirection.In,
+            Name = "InPinDirectory",
+            DisplayName = "Directory",
+            DataType = typeof(string))]
+        public DataPin InPinDirectory { get; set; }
 
         [DataPinDefinition(
             Id = "B099730A-5A72-47AD-B7F2-A43A4283A9BA",

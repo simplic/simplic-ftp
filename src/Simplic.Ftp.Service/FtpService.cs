@@ -14,30 +14,21 @@ namespace Simplic.Ftp.Service
         {
             var request = (FtpWebRequest)WebRequest.Create(serverConfiguration.URI + filename);
             request.Method = WebRequestMethods.Ftp.DeleteFile;
+            request.Credentials = new NetworkCredential(serverConfiguration.Username, serverConfiguration.Password);
             request.GetResponse();
             return true;
         }
 
         public byte[] DownloadFile(FtpServerConfiguration serverConfiguration, string filename)
         {
-            var request = (FtpWebRequest)WebRequest.Create(serverConfiguration.URI + filename);
-            request.Method = WebRequestMethods.Ftp.DownloadFile;
-            request.UseBinary = true;
-
+            var request = new WebClient();
             request.Credentials = new NetworkCredential(serverConfiguration.Username, serverConfiguration.Password);
-            FtpWebResponse response = (FtpWebResponse)request.GetResponse();
-
-            Stream reader = request.GetResponse().GetResponseStream();
-            
-            using (BinaryReader binaryReader = new BinaryReader(reader))
-            {
-                return binaryReader.ReadBytes((int)reader.Length);
-            }
+            return request.DownloadData(serverConfiguration.URI + filename);
         }
 
-        public IList<string> GetDirectoryContent(FtpServerConfiguration serverConfiguration)
+        public IList<string> GetDirectoryContent(FtpServerConfiguration serverConfiguration, string directory)
         {
-            var request = (FtpWebRequest)WebRequest.Create(serverConfiguration.URI);
+            var request = (FtpWebRequest)WebRequest.Create(serverConfiguration.URI + directory);
             request.Method = WebRequestMethods.Ftp.ListDirectoryDetails;
 
 
@@ -66,9 +57,9 @@ namespace Simplic.Ftp.Service
             return true;
         }
 
-        public bool UploadFile(FtpServerConfiguration serverConfiguration, byte[] file)
+        public bool UploadFile(FtpServerConfiguration serverConfiguration, byte[] file, string path, string fileName)
         {
-            var request = (FtpWebRequest)WebRequest.Create(serverConfiguration.URI);
+            var request = (FtpWebRequest)WebRequest.Create(serverConfiguration.URI + path + fileName);
             request.Method = WebRequestMethods.Ftp.UploadFile;
             request.Credentials = new NetworkCredential(serverConfiguration.Username, serverConfiguration.Password);
             request.ContentLength = file.Length;
