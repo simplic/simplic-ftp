@@ -32,7 +32,8 @@ namespace Simplic.Ftp.Flow
                 serviceCache.Add(server.Type.ToString(), ftpService);
             }
             var filename = scope.GetValue<string>(InPinFileName);
-            var file = ftpService.DownloadFile(server, filename);
+            var path = scope.GetValue<string>(InPinPath);
+            var file = ftpService.DownloadFile(server, filename + path);
             scope.SetValue(OutPinFile, file);
             runtime.EnqueueNode(OutNodeSuccess, scope);
 
@@ -56,6 +57,15 @@ namespace Simplic.Ftp.Flow
             DisplayName = "Server",
             DataType = typeof(string))]
         public DataPin InPinServer { get; set; }
+
+        [DataPinDefinition(
+            Id = "55A3798F-100B-4F1D-AF7D-CB175C4AE9AB",
+            ContainerType = DataPinContainerType.Single,
+            Direction = PinDirection.In,
+            Name = "InPinPath",
+            DisplayName = "Path",
+            DataType = typeof(string))]
+        public DataPin InPinPath{ get; set; }
 
         [DataPinDefinition(
             Id = "E611D837-F95C-4BFF-BFCE-743654BC2640",
