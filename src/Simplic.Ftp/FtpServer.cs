@@ -8,7 +8,7 @@ namespace Simplic.Ftp
 {
     public class FtpServerConfiguration
     {
-        public Guid Guid { get; set; }
+        public Guid Guid { get; set; } = Guid.NewGuid();
 
         public string InternalName { get; set; }
 
