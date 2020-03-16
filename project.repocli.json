@@ -1,0 +1,37 @@
+{
+  "settings": {
+    "connectionString": "server=sc-dev02;dbn=simplic;charset=utf-8;uid=admin;pwd=school;links=TCPIP"
+  },
+  "commands": [
+    {
+      "type": "copy",
+      "target": "src\\bin\\Debug\\Simplic.PlugIn.Ftp.dll",
+      "destination": "/bin/Simplic.PlugIn.Ftp.dll"
+    },
+    {
+      "type": "copy",
+      "target": "src\\bin\\Debug\\Simplic.Ftp.dll",
+      "destination": "/bin/Simplic.Ftp.dll"
+    },
+    {
+      "type": "copy",
+      "target": "src\\bin\\Debug\\Simplic.Ftp.Data.DB.dll",
+      "destination": "/bin/Simplic.Ftp.Data.DB.dll"
+    },
+    {
+      "type": "copy",
+      "target": "src\\bin\\Debug\\Simplic.Ftp.Service.dll",
+      "destination": "/bin/Simplic.Ftp.Service.dll"
+    },
+    {
+      "type": "copy",
+      "target": "src\\bin\\Debug\\Simplic.Ftp.UI.dll",
+      "destination": "/bin/Simplic.Ftp.UI.dll"
+    },
+    {
+      "type": "copy",
+      "target": "src\\bin\\Debug\\Simplic.Ftp.Flow.dll",
+      "destination": "/bin/Simplic.Ftp.Flow.dll"
+    }
+  ]
+}
