@@ -37,7 +37,7 @@ namespace Simplic.Ftp.Service
                     }
                 }
 
-                    
+
             }
         }
 
@@ -70,16 +70,27 @@ namespace Simplic.Ftp.Service
 
         public bool UploadFile(FtpServerConfiguration serverConfiguration, byte[] file, string path, string fileName)
         {
+            if (!path.EndsWith("/"))
+                path = path + "/";
+            if (!path.StartsWith("/"))
+                path = "/" + path;
+            if (fileName.StartsWith("/"))
+                fileName = fileName.Substring(1, fileName.Length - 1);
+
+            var filepath = path + fileName;
+
+            Console.WriteLine($"Begin SSH.Net upload to {serverConfiguration.URI}{filepath}");
             using (SftpClient sftp = new SftpClient(serverConfiguration.URI, serverConfiguration.Username, serverConfiguration.Password))
             {
                 sftp.Connect();
                 using (var fs = File.Create(Path.GetTempFileName(), 4096, FileOptions.DeleteOnClose))
                 {
+                    Console.WriteLine($"TempFileName: {fs.Name}");
                     using (var bw = new BinaryWriter(fs))
                     {
                         bw.Write(file);
                     }
-                    sftp.UploadFile(fs, path);
+                    sftp.UploadFile(fs, filepath);
                 }
                 sftp.Disconnect();
             }

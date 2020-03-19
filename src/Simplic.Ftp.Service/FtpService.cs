@@ -59,7 +59,31 @@ namespace Simplic.Ftp.Service
 
         public bool UploadFile(FtpServerConfiguration serverConfiguration, byte[] file, string path, string fileName)
         {
-            var request = (FtpWebRequest)WebRequest.Create(serverConfiguration.URI + path + fileName);
+            if (file == null)
+                throw new Exception("");
+
+            var uri = serverConfiguration.URI.Trim();
+
+            if (!string.IsNullOrWhiteSpace(fileName))
+            {
+                path = path ?? "/";
+                fileName = fileName ?? "";
+                path = path.Trim();
+                fileName = fileName.Trim();
+
+                if (!path.EndsWith("/"))
+                    path = path + "/";
+                if (!path.StartsWith("/"))
+                    path = "/" + path;
+
+                if (fileName.StartsWith("/"))
+                    fileName = fileName.Substring(1, fileName.Length - 1);
+                
+                if (uri.EndsWith("/"))
+                    uri = uri.Substring(0, uri.Length - 1);
+            }
+
+            var request = (FtpWebRequest)WebRequest.Create(uri + path + fileName);
             request.Method = WebRequestMethods.Ftp.UploadFile;
             request.Credentials = new NetworkCredential(serverConfiguration.Username, serverConfiguration.Password);
             request.ContentLength = file.Length;
