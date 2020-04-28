@@ -15,7 +15,7 @@ namespace Simplic.Ftp.Flow
 
             var groupName = scope.GetValue<string>(InPinGroupName);
             var serverNames = new List<string>();
-            if(groupName == null || groupName.Trim() == "")
+            if(!string.IsNullOrWhiteSpace(groupName))
             {
                 var servers = ftpServerConfigurationService.GetActiveByGroupName(groupName);
                 foreach (var server in servers)
