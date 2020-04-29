@@ -43,7 +43,7 @@ namespace Simplic.PlugIn.Ftp
     /// <summary>
     /// Root PlugIn class
     /// </summary>
-    [PlugInDesc("Simplic Ftp", "1.0.119.1202", "D02206F4-26CD-4026-8B4A-81BFF978A0C2")]
+    [PlugInDesc("Simplic Ftp", "1.0.20.429", "D02206F4-26CD-4026-8B4A-81BFF978A0C2")]
     public class Init
     {
         /// <summary>
