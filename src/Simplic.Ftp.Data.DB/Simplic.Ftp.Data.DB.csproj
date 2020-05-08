@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Simplic.Ftp.Data.DB</RootNamespace>
     <AssemblyName>Simplic.Ftp.Data.DB</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,24 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dapper, Version=1.50.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\Simplic.Ftp\packages\Dapper.1.50.5\lib\net451\Dapper.dll</HintPath>
-    </Reference>
-    <Reference Include="Simplic.Cache, Version=6.0.18.619, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\Simplic.Ftp\packages\Simplic.Cache.6.0.18.619\lib\net451\Simplic.Cache.dll</HintPath>
-    </Reference>
-    <Reference Include="Simplic.CoreLib, Version=6.14.418.1002, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\Simplic.Ftp\packages\Simplic.CoreLib.6.14.418.1002\lib\net451\Simplic.CoreLib.dll</HintPath>
-    </Reference>
-    <Reference Include="Simplic.Data, Version=1.6.19.614, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\Simplic.Ftp\packages\Simplic.Data.1.6.19.614\lib\net451\Simplic.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="Simplic.Data.Sql, Version=1.14.19.614, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\Simplic.Ftp\packages\Simplic.Data.Sql.1.14.19.614\lib\net451\Simplic.Data.Sql.dll</HintPath>
-    </Reference>
-    <Reference Include="Simplic.Sql, Version=6.2.18.926, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\Simplic.Ftp\packages\Simplic.Sql.6.2.18.926\lib\net451\Simplic.Sql.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -63,13 +46,27 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Simplic.Ftp\Simplic.Ftp.csproj">
       <Project>{8f628604-ddd7-4cfe-ba44-7b907c5c38e0}</Project>
       <Name>Simplic.Ftp</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Dapper">
+      <Version>2.0.35</Version>
+    </PackageReference>
+    <PackageReference Include="Simplic.Cache">
+      <Version>6.1.20.217</Version>
+    </PackageReference>
+    <PackageReference Include="Simplic.Data">
+      <Version>1.6.120.322</Version>
+    </PackageReference>
+    <PackageReference Include="Simplic.Data.Sql">
+      <Version>1.14.220.427</Version>
+    </PackageReference>
+    <PackageReference Include="Simplic.Sql">
+      <Version>6.3.20.322</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

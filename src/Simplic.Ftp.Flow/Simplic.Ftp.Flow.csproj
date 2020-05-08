@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Simplic.Ftp.Flow</RootNamespace>
     <AssemblyName>Simplic.Ftp.Flow</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,21 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CommonServiceLocator, Version=2.0.5.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
-      <HintPath>..\Simplic.Ftp\packages\CommonServiceLocator.2.0.5\lib\net45\CommonServiceLocator.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Simplic.CoreLib, Version=6.14.418.1002, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Simplic.CoreLib.6.14.418.1002\lib\net451\Simplic.CoreLib.dll</HintPath>
-    </Reference>
-    <Reference Include="Simplic.Data, Version=1.6.19.614, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\Simplic.Ftp\packages\Simplic.Data.1.6.19.614\lib\net451\Simplic.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="Simplic.Flow, Version=6.6.119.1106, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\Simplic.Ftp\packages\Simplic.Flow.6.6.119.1106\lib\net451\Simplic.Flow.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -65,13 +51,21 @@
     <Compile Include="UploadFileToFtpNode.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Simplic.Ftp\Simplic.Ftp.csproj">
       <Project>{8f628604-ddd7-4cfe-ba44-7b907c5c38e0}</Project>
       <Name>Simplic.Ftp</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CommonServiceLocator">
+      <Version>2.0.5</Version>
+    </PackageReference>
+    <PackageReference Include="Simplic.Data">
+      <Version>1.6.120.322</Version>
+    </PackageReference>
+    <PackageReference Include="Simplic.Flow">
+      <Version>7.0.20.329</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
