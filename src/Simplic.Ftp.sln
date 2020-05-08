@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.106
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simplic.Ftp", "Simplic.Ftp\Simplic.Ftp.csproj", "{8F628604-DDD7-4CFE-BA44-7B907C5C38E0}"
 EndProject
@@ -17,6 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simplic.PlugIn.Ftp", "Simpl
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8DCB8EF2-D903-4514-A0B1-89D33C125447}"
 	ProjectSection(SolutionItems) = preProject
+		..\azure-pipelines.yml = ..\azure-pipelines.yml
 		..\project.repocli.json = ..\project.repocli.json
 	EndProjectSection
 EndProject
