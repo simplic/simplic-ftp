@@ -83,14 +83,10 @@ namespace Simplic.Ftp.Service
             using (SftpClient sftp = new SftpClient(serverConfiguration.URI, serverConfiguration.Username, serverConfiguration.Password))
             {
                 sftp.Connect();
-                using (var fs = File.Create(Path.GetTempFileName(), 4096, FileOptions.DeleteOnClose))
+                using (var stream = new MemoryStream(file))
                 {
-                    Console.WriteLine($"TempFileName: {fs.Name}");
-                    using (var bw = new BinaryWriter(fs))
-                    {
-                        bw.Write(file);
-                    }
-                    sftp.UploadFile(fs, filepath);
+                    stream.Position = 0;
+                    sftp.UploadFile(stream, filepath, true);
                 }
                 sftp.Disconnect();
             }
