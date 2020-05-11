@@ -50,7 +50,8 @@ namespace Simplic.Ftp.Service
                 var files = sftp.ListDirectory(directory);
                 foreach (var file in files)
                 {
-                    filenames.Add(file.Name);
+                    if(file.IsRegularFile)
+                        filenames.Add(file.Name);
                 }
                 sftp.Disconnect();
             }
