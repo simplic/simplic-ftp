@@ -1,6 +1,7 @@
 ﻿using Simplic.Flow;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace Simplic.Ftp.Flow
@@ -33,7 +34,7 @@ namespace Simplic.Ftp.Flow
             }
             var filename = scope.GetValue<string>(InPinFileName);
             var path = scope.GetValue<string>(InPinPath);
-            var file = ftpService.DownloadFile(server, filename + path);
+            var file = ftpService.DownloadFile(server, path + filename );
             scope.SetValue(OutPinFile, file);
             runtime.EnqueueNode(OutNodeSuccess, scope);
 

@@ -26,7 +26,7 @@ namespace Simplic.Ftp.Service
             using (SftpClient sftp = new SftpClient(serverConfiguration.URI, serverConfiguration.Username, serverConfiguration.Password))
             {
                 sftp.Connect();
-                using (var fs = File.Create(Path.GetTempFileName(), 4096, FileOptions.DeleteOnClose))
+                using (var fs = new MemoryStream())
                 {
                     sftp.DownloadFile(filename, fs);
                     using (var br = new BinaryReader(fs))
@@ -36,8 +36,6 @@ namespace Simplic.Ftp.Service
                         return bytes;
                     }
                 }
-
-
             }
         }
 
@@ -50,7 +48,7 @@ namespace Simplic.Ftp.Service
                 var files = sftp.ListDirectory(directory);
                 foreach (var file in files)
                 {
-                    if(file.IsRegularFile)
+                    if (file.IsRegularFile)
                         filenames.Add(file.Name);
                 }
                 sftp.Disconnect();
