@@ -29,12 +29,10 @@ namespace Simplic.Ftp.Service
                 using (var fs = new MemoryStream())
                 {
                     sftp.DownloadFile(filename, fs);
-                    using (var br = new BinaryReader(fs))
-                    {
-                        var bytes = br.ReadBytes((int)fs.Length);
-                        sftp.Disconnect();
-                        return bytes;
-                    }
+                    fs.Position = 0;
+                    var file = fs.ToArray();
+                    sftp.Disconnect();
+                    return file;
                 }
             }
         }
