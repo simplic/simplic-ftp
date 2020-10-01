@@ -1,4 +1,5 @@
 {
   "productname": "Simplic Ftp",
-  "is_main_repo": true
+  "init_path": "src/Simplic.PugIn.Ftp/Init.cs",
+  "subrepositories": []
 }
