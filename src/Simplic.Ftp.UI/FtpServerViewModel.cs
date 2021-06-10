@@ -59,6 +59,11 @@ namespace Simplic.Ftp.UI
         public string GroupName { get => Model.GroupName; set => PropertySetter(value, newValue => { Model.GroupName = newValue; }); }
 
         /// <summary>
+        /// Gets or sets wherther the connection usees the passive ftp feature
+        /// </summary>
+        public bool UsePassive { get => Model.UsePassive; set => PropertySetter(value, newValue => { Model.UsePassive = newValue; }); }
+
+        /// <summary>
         /// Gets or sets the type.
         /// </summary>
         public FtpServerConfigurationType Type { get => Model.Type; set => PropertySetter(value, newValue => { Model.Type = newValue; }); }

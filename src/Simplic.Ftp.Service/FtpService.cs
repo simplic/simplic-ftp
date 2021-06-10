@@ -19,9 +19,13 @@ namespace Simplic.Ftp.Service
         /// <returns></returns>
         public bool DeleteFile(FtpServerConfiguration serverConfiguration, string filename)
         {
+            if (!serverConfiguration.URI.EndsWith("/") && !filename.StartsWith("/"))
+                filename = "/" + filename;
+
             var request = (FtpWebRequest)WebRequest.Create(serverConfiguration.URI + filename);
             request.Method = WebRequestMethods.Ftp.DeleteFile;
             request.Credentials = new NetworkCredential(serverConfiguration.Username, serverConfiguration.Password);
+            request.UsePassive = serverConfiguration.UsePassive;
             request.GetResponse();
             return true;
         }
@@ -34,10 +38,13 @@ namespace Simplic.Ftp.Service
         /// <returns></returns>
         public byte[] DownloadFile(FtpServerConfiguration serverConfiguration, string filename)
         {
+            if (!serverConfiguration.URI.EndsWith("/") && !filename.StartsWith("/"))
+                filename = "/" + filename;
+
             var request = (FtpWebRequest)WebRequest.Create(serverConfiguration.URI + filename);
             request.Method = WebRequestMethods.Ftp.DownloadFile;
             request.Credentials = new NetworkCredential(serverConfiguration.Username, serverConfiguration.Password);
-            request.UsePassive = false;
+            request.UsePassive = serverConfiguration.UsePassive;
 
             var stream = request.GetResponse().GetResponseStream();
             var streamReader = new StreamReader(stream);
@@ -53,10 +60,13 @@ namespace Simplic.Ftp.Service
         /// <returns></returns>
         public IList<string> GetDirectoryContent(FtpServerConfiguration serverConfiguration, string directory)
         {
+
+            if (!serverConfiguration.URI.EndsWith("/") && !directory.StartsWith("/"))
+                directory = "/" + directory;
+
             var request = (FtpWebRequest)WebRequest.Create(serverConfiguration.URI + directory);
             request.Method = WebRequestMethods.Ftp.ListDirectoryDetails;
-
-
+            request.UsePassive = serverConfiguration.UsePassive;
             request.Credentials = new NetworkCredential(serverConfiguration.Username, serverConfiguration.Password);
 
             var response = request.GetResponse();
@@ -80,7 +90,7 @@ namespace Simplic.Ftp.Service
         {
             var request = (FtpWebRequest)WebRequest.Create(serverConfiguration.URI + filename);
             request.Method = WebRequestMethods.Ftp.Rename;
-
+            request.UsePassive = serverConfiguration.UsePassive;
             request.Credentials = new NetworkCredential(serverConfiguration.Username, serverConfiguration.Password);
 
             request.RenameTo = newFilename;
@@ -127,6 +137,7 @@ namespace Simplic.Ftp.Service
             request.Method = WebRequestMethods.Ftp.UploadFile;
             request.Credentials = new NetworkCredential(serverConfiguration.Username, serverConfiguration.Password);
             request.ContentLength = file.Length;
+            request.UsePassive = serverConfiguration.UsePassive;
             request.UseBinary = true;
 
             using (Stream requestStream = request.GetRequestStream())

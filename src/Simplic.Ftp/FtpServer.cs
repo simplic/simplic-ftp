@@ -44,6 +44,11 @@ namespace Simplic.Ftp
         public string GroupName { get; set; }
 
         /// <summary>
+        /// Gets or sets wherther the connection uses the passive ftp feature
+        /// </summary>
+        public bool UsePassive { get; set; } = false;
+
+        /// <summary>
         /// Gets or sets the ftp server configuration type (Ftp/Sftp)
         /// </summary>
         public FtpServerConfigurationType Type { get; set; }
