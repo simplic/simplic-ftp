@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Simplic.Ftp
 {
+    /// <summary>
+    /// Class to represent a ftp server configuration
+    /// </summary>
     public class FtpServerConfiguration
     {
         /// <summary>

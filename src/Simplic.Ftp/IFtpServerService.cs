@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Simplic.Ftp
+﻿namespace Simplic.Ftp
 {
+    /// <summary>
+    /// A service to load, save and delete ftp server configurations
+    /// </summary>
     public interface IFtpServerConfigurationService : IFtpServerConfigurationRepository
     {
 
