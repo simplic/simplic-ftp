@@ -21,9 +21,15 @@ namespace Simplic.Ftp.Service
 
         public byte[] DownloadFile(FtpServerConfiguration serverConfiguration, string filename)
         {
-            var request = new WebClient();
+            var request = (FtpWebRequest)WebRequest.Create(serverConfiguration.URI + filename);
+            request.Method = WebRequestMethods.Ftp.DownloadFile;
             request.Credentials = new NetworkCredential(serverConfiguration.Username, serverConfiguration.Password);
-            return request.DownloadData(serverConfiguration.URI + filename);
+            request.UsePassive = false;
+
+            var stream = request.GetResponse().GetResponseStream();
+            var streamReader = new StreamReader(stream);
+
+            return Encoding.UTF8.GetBytes(streamReader.ReadToEnd());
         }
 
         public IList<string> GetDirectoryContent(FtpServerConfiguration serverConfiguration, string directory)
