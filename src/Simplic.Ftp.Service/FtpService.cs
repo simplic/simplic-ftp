@@ -1,15 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Simplic.Ftp.Service
 {
+    /// <summary>
+    /// Service implementation to interact with ftp servers
+    /// </summary>
     public class FtpService : IFtpService
     {
+        /// <summary>
+        /// Deletes a file.
+        /// </summary>
+        /// <param name="serverConfiguration">The server configuration</param>
+        /// <param name="filename">The file name</param>
+        /// <returns></returns>
         public bool DeleteFile(FtpServerConfiguration serverConfiguration, string filename)
         {
             var request = (FtpWebRequest)WebRequest.Create(serverConfiguration.URI + filename);
@@ -19,6 +26,12 @@ namespace Simplic.Ftp.Service
             return true;
         }
 
+        /// <summary>
+        /// Downlaods a file.
+        /// </summary>
+        /// <param name="serverConfiguration">The ftp server configuration</param>
+        /// <param name="filename">The filename</param>
+        /// <returns></returns>
         public byte[] DownloadFile(FtpServerConfiguration serverConfiguration, string filename)
         {
             var request = (FtpWebRequest)WebRequest.Create(serverConfiguration.URI + filename);
@@ -32,6 +45,12 @@ namespace Simplic.Ftp.Service
             return Encoding.UTF8.GetBytes(streamReader.ReadToEnd());
         }
 
+        /// <summary>
+        /// Gets the directory content.
+        /// </summary>
+        /// <param name="serverConfiguration">The ftp server configuration.</param>
+        /// <param name="directory">The directory</param>
+        /// <returns></returns>
         public IList<string> GetDirectoryContent(FtpServerConfiguration serverConfiguration, string directory)
         {
             var request = (FtpWebRequest)WebRequest.Create(serverConfiguration.URI + directory);
@@ -46,10 +65,17 @@ namespace Simplic.Ftp.Service
             var dir = new List<string>();
             while (reader.Peek() >= 0)
                 dir.Add(reader.ReadLine());
-            
+
             return dir;
         }
 
+        /// <summary>
+        /// Renames a file.
+        /// </summary>
+        /// <param name="serverConfiguration">The ftp server configuration</param>
+        /// <param name="filename">The filename</param>
+        /// <param name="newFilename">The new filename</param>
+        /// <returns></returns>
         public bool RenameFile(FtpServerConfiguration serverConfiguration, string filename, string newFilename)
         {
             var request = (FtpWebRequest)WebRequest.Create(serverConfiguration.URI + filename);
@@ -63,6 +89,14 @@ namespace Simplic.Ftp.Service
             return true;
         }
 
+        /// <summary>
+        /// Uploads a file.
+        /// </summary>
+        /// <param name="serverConfiguration">The ftp server configuation</param>
+        /// <param name="file">The file</param>
+        /// <param name="path">The path</param>
+        /// <param name="fileName">The filename</param>
+        /// <returns></returns>
         public bool UploadFile(FtpServerConfiguration serverConfiguration, byte[] file, string path, string fileName)
         {
             if (file == null)
@@ -84,7 +118,7 @@ namespace Simplic.Ftp.Service
 
                 if (fileName.StartsWith("/"))
                     fileName = fileName.Substring(1, fileName.Length - 1);
-                
+
                 if (uri.EndsWith("/"))
                     uri = uri.Substring(0, uri.Length - 1);
             }
