@@ -15,7 +15,7 @@ namespace Simplic.Ftp.Flow
         private Dictionary<string, IFtpService> serviceCache;
 
         /// <summary>
-        /// initializes a new instance fo DeleteFileFromFtpServerNode.
+        /// Initializes a new instance fo DeleteFileFromFtpServerNode.
         /// </summary>
         public DeleteFileFromFtpServerNode()
         {
