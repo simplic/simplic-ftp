@@ -12,6 +12,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
@@ -41,5 +42,7 @@
         <ComboBox ItemsSource="{Binding Path=TypeSource}" SelectedValue="{Binding Type, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                           DisplayMemberPath="Value" SelectedValuePath="Key"
                             Grid.Row="3" Grid.Column="3" Margin="3"/>
+
+        <CheckBox Content="Passiver Server" IsChecked="{Binding UsePassive, Mode=TwoWay}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="3"/>
     </Grid>
 </local:BaseFtpServerWindow>

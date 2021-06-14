@@ -2,14 +2,20 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Simplic.Ftp.Service
 {
+    /// <summary>
+    /// Service implementation to interact with sftp servers.
+    /// </summary>
     public class SftpService : IFtpService
     {
+        /// <summary>
+        /// Deletes a file.
+        /// </summary>
+        /// <param name="serverConfiguration">The ftp server configuration</param>
+        /// <param name="filename">The filename</param>
+        /// <returns></returns>
         public bool DeleteFile(FtpServerConfiguration serverConfiguration, string filename)
         {
             using (SftpClient sftp = new SftpClient(serverConfiguration.URI, serverConfiguration.Username, serverConfiguration.Password))
@@ -21,6 +27,12 @@ namespace Simplic.Ftp.Service
             return true;
         }
 
+        /// <summary>
+        /// Downloads a file.
+        /// </summary>
+        /// <param name="serverConfiguration">The ftp server configuration</param>
+        /// <param name="filename">The filename</param>
+        /// <returns></returns>
         public byte[] DownloadFile(FtpServerConfiguration serverConfiguration, string filename)
         {
             using (SftpClient sftp = new SftpClient(serverConfiguration.URI, serverConfiguration.Username, serverConfiguration.Password))
@@ -37,6 +49,12 @@ namespace Simplic.Ftp.Service
             }
         }
 
+        /// <summary>
+        /// Gets the directory content.
+        /// </summary>
+        /// <param name="serverConfiguration">The ftp server configuration</param>
+        /// <param name="directory">The directory</param>
+        /// <returns></returns>
         public IList<string> GetDirectoryContent(FtpServerConfiguration serverConfiguration, string directory)
         {
             var filenames = new List<string>();
@@ -54,6 +72,13 @@ namespace Simplic.Ftp.Service
             return filenames;
         }
 
+        /// <summary>
+        /// Renames a file.
+        /// </summary>
+        /// <param name="serverConfiguration">The ftp server configuration</param>
+        /// <param name="filename">The filename</param>
+        /// <param name="newFilename">The new filename</param>
+        /// <returns></returns>
         public bool RenameFile(FtpServerConfiguration serverConfiguration, string filename, string newFilename)
         {
             using (SftpClient sftp = new SftpClient(serverConfiguration.URI, serverConfiguration.Username, serverConfiguration.Password))
@@ -65,6 +90,14 @@ namespace Simplic.Ftp.Service
             return true;
         }
 
+        /// <summary>
+        /// Uploads a file.
+        /// </summary>
+        /// <param name="serverConfiguration">The ftp server configuration</param>
+        /// <param name="file">The file</param>
+        /// <param name="path">The path</param>
+        /// <param name="fileName">The file name</param>
+        /// <returns></returns>
         public bool UploadFile(FtpServerConfiguration serverConfiguration, byte[] file, string path, string fileName)
         {
             if (!path.EndsWith("/"))
