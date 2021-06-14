@@ -16,8 +16,15 @@ using System.Windows.Shapes;
 
 namespace Simplic.Ftp.UI
 {
+    /// <summary>
+    /// Base window for FtpServerWindow.xaml
+    /// </summary>
     public abstract class BaseFtpServerWindow : ApplicationWindow<Guid, FtpServerConfiguration, FtpServerViewModel, IFtpServerConfigurationService>
     {
+        /// <summary>
+        /// Initializes a new instance of FBaseFtpServerWindow
+        /// </summary>
+        /// <param name="ftpServerService"></param>
         public BaseFtpServerWindow(IFtpServerConfigurationService ftpServerService)
             : base(ftpServerService)
         {
@@ -31,6 +38,10 @@ namespace Simplic.Ftp.UI
     /// </summary>
     public partial class FtpServerWindow : BaseFtpServerWindow, IFtpServerWindow
     {
+        /// <summary>
+        /// Initializes a new instance of FtpServerWindow
+        /// </summary>
+        /// <param name="ftpServerService"></param>
         public FtpServerWindow(IFtpServerConfigurationService ftpServerService)
             : base(ftpServerService)
         {
