@@ -54,7 +54,7 @@ namespace Simplic.Ftp
         public FtpServerConfigurationType Type { get; set; }
 
         /// <summary>
-        /// Gets or sets the timeoft seconds
+        /// Gets or sets the timeout in milliseconds
         /// </summary>
         public int Timeout { get; set; }
     }

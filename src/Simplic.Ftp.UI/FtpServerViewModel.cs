@@ -69,6 +69,11 @@ namespace Simplic.Ftp.UI
         public FtpServerConfigurationType Type { get => Model.Type; set => PropertySetter(value, newValue => { Model.Type = newValue; }); }
 
         /// <summary>
+        /// Gets or sets the timeout in milliseconds
+        /// </summary>
+        public int Timeout { get => Model.Timeout; set => PropertySetter(value, newValue => { Model.Timeout = newValue; }); }
+
+        /// <summary>
         /// Gets or sets the type source.
         /// </summary>
         public Dictionary<FtpServerConfigurationType, string> TypeSource
