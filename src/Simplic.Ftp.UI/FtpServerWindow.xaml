@@ -4,10 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Simplic.Ftp.UI"
+             xmlns:simplic="http://schemas.simplic-systems.com/2016/xaml/presentation"
              mc:Ignorable="d" 
              Height="450" Width="800" Title="FTP Server bearbeiten">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
@@ -22,27 +24,31 @@
         </Grid.ColumnDefinitions>
 
         <Label Content="Name" Grid.Row="0" Grid.Column="0" Margin="3"/>
-        <TextBox Text="{Binding InternalName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="1" Margin="3"/>
+        <simplic:TextBox Text="{Binding InternalName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="1" />
 
         <Label Content="Gruppe" Grid.Row="0" Grid.Column="2" Margin="3"/>
-        <TextBox Text="{Binding GroupName , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="3" Margin="3"/>
+        <simplic:TextBox Text="{Binding GroupName , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="3"/>
 
         <Label Content="Uri" Grid.Row="1" Grid.Column="0" Margin="3"/>
-        <TextBox Text="{Binding URI, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="3"/>
+        <simplic:TextBox Text="{Binding URI, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"/>
 
         <Label Content="Username" Grid.Row="2" Grid.Column="0" Margin="3"/>
-        <TextBox Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="1" Margin="3"/>
+        <simplic:TextBox Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="1" Margin="3"/>
 
         <Label Content="Passwort" Grid.Row="2" Grid.Column="2" Margin="3"/>
-        <TextBox Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="3" Margin="3"/>
+        <simplic:TextBox Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="3" Margin="3"/>
 
-        <CheckBox Content="Aktiv" IsChecked="{Binding Active, Mode=TwoWay}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="3"/>
+        <simplic:CheckBox Content="Aktiv" IsChecked="{Binding Active, Mode=TwoWay}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="3"/>
 
         <Label Content="Typ" Grid.Row="3" Grid.Column="2" Margin="3"/>
-        <ComboBox ItemsSource="{Binding Path=TypeSource}" SelectedValue="{Binding Type, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+        <simplic:ComboBox ItemsSource="{Binding Path=TypeSource}" SelectedValue="{Binding Type, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                           DisplayMemberPath="Value" SelectedValuePath="Key"
                             Grid.Row="3" Grid.Column="3" Margin="3"/>
 
         <CheckBox Content="Passiver Server" IsChecked="{Binding UsePassive, Mode=TwoWay}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="3"/>
+
+        <Label Content="Timeout Millisekunden" Grid.Row="5" Grid.Column="0" Margin="3"/>
+        <simplic:NumericUpDown Value="{Binding Timeout, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="5" Grid.Column="1" NumberDecimalDigits="0"/>
+
     </Grid>
 </local:BaseFtpServerWindow>

@@ -1,2 +1,5 @@
 <ReleaseNotes>
+  <ChangeSet>
+    <Change type="feature">Add the possibillity to set a custom timeout.</Change>
+  </ChangeSet>
 </ReleaseNotes>
