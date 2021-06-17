@@ -20,6 +20,8 @@ namespace Simplic.Ftp.Service
         {
             using (SftpClient sftp = new SftpClient(serverConfiguration.URI, serverConfiguration.Username, serverConfiguration.Password))
             {
+                if (serverConfiguration.Timeout != 0)
+                    sftp.OperationTimeout = TimeSpan.FromMilliseconds(serverConfiguration.Timeout);
                 sftp.Connect();
                 sftp.DeleteFile(filename);
                 sftp.Disconnect();
@@ -37,6 +39,9 @@ namespace Simplic.Ftp.Service
         {
             using (SftpClient sftp = new SftpClient(serverConfiguration.URI, serverConfiguration.Username, serverConfiguration.Password))
             {
+                if (serverConfiguration.Timeout != 0)
+                    sftp.OperationTimeout = TimeSpan.FromMilliseconds(serverConfiguration.Timeout);
+
                 sftp.Connect();
                 using (var fs = new MemoryStream())
                 {
@@ -60,6 +65,9 @@ namespace Simplic.Ftp.Service
             var filenames = new List<string>();
             using (SftpClient sftp = new SftpClient(serverConfiguration.URI, serverConfiguration.Username, serverConfiguration.Password))
             {
+                if (serverConfiguration.Timeout != 0)
+                    sftp.OperationTimeout = TimeSpan.FromMilliseconds(serverConfiguration.Timeout);
+
                 sftp.Connect();
                 var files = sftp.ListDirectory(directory);
                 foreach (var file in files)
@@ -83,6 +91,9 @@ namespace Simplic.Ftp.Service
         {
             using (SftpClient sftp = new SftpClient(serverConfiguration.URI, serverConfiguration.Username, serverConfiguration.Password))
             {
+                if (serverConfiguration.Timeout != 0)
+                    sftp.OperationTimeout = TimeSpan.FromMilliseconds(serverConfiguration.Timeout);
+
                 sftp.Connect();
                 sftp.RenameFile(filename, newFilename);
                 sftp.Disconnect();
@@ -112,6 +123,9 @@ namespace Simplic.Ftp.Service
             Console.WriteLine($"Begin SSH.Net upload to {serverConfiguration.URI}{filepath}");
             using (SftpClient sftp = new SftpClient(serverConfiguration.URI, serverConfiguration.Username, serverConfiguration.Password))
             {
+                if (serverConfiguration.Timeout != 0)
+                    sftp.OperationTimeout = TimeSpan.FromMilliseconds(serverConfiguration.Timeout);
+
                 sftp.Connect();
                 using (var stream = new MemoryStream(file))
                 {
