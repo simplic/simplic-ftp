@@ -56,6 +56,6 @@ namespace Simplic.Ftp
         /// <summary>
         /// Gets or sets the timeoft seconds
         /// </summary>
-        public int TimeoutSeconds { get; set; }
+        public int Timeout { get; set; }
     }
 }
