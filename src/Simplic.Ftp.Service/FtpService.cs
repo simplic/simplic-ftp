@@ -26,6 +26,10 @@ namespace Simplic.Ftp.Service
             request.Method = WebRequestMethods.Ftp.DeleteFile;
             request.Credentials = new NetworkCredential(serverConfiguration.Username, serverConfiguration.Password);
             request.UsePassive = serverConfiguration.UsePassive;
+
+            if (serverConfiguration.Timeout != 0)
+                request.Timeout = serverConfiguration.Timeout;
+
             request.GetResponse();
             return true;
         }
@@ -45,6 +49,10 @@ namespace Simplic.Ftp.Service
             request.Method = WebRequestMethods.Ftp.DownloadFile;
             request.Credentials = new NetworkCredential(serverConfiguration.Username, serverConfiguration.Password);
             request.UsePassive = serverConfiguration.UsePassive;
+
+            if (serverConfiguration.Timeout != 0)
+                request.Timeout = serverConfiguration.Timeout;
+
 
             var stream = request.GetResponse().GetResponseStream();
             var streamReader = new StreamReader(stream);
@@ -69,6 +77,9 @@ namespace Simplic.Ftp.Service
             request.UsePassive = serverConfiguration.UsePassive;
             request.Credentials = new NetworkCredential(serverConfiguration.Username, serverConfiguration.Password);
 
+            if (serverConfiguration.Timeout != 0)
+                request.Timeout = serverConfiguration.Timeout;
+
             var response = request.GetResponse();
             var stream = response.GetResponseStream();
             var reader = new StreamReader(stream);
@@ -92,6 +103,9 @@ namespace Simplic.Ftp.Service
             request.Method = WebRequestMethods.Ftp.Rename;
             request.UsePassive = serverConfiguration.UsePassive;
             request.Credentials = new NetworkCredential(serverConfiguration.Username, serverConfiguration.Password);
+
+            if (serverConfiguration.Timeout != 0)
+                request.Timeout = serverConfiguration.Timeout;
 
             request.RenameTo = newFilename;
             request.GetResponse();
@@ -139,6 +153,9 @@ namespace Simplic.Ftp.Service
             request.ContentLength = file.Length;
             request.UsePassive = serverConfiguration.UsePassive;
             request.UseBinary = true;
+
+            if (serverConfiguration.Timeout != 0)
+                request.Timeout = serverConfiguration.Timeout;
 
             using (Stream requestStream = request.GetRequestStream())
             {
