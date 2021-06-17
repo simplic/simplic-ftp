@@ -52,5 +52,10 @@ namespace Simplic.Ftp
         /// Gets or sets the ftp server configuration type (Ftp/Sftp)
         /// </summary>
         public FtpServerConfigurationType Type { get; set; }
+
+        /// <summary>
+        /// Gets or sets the timeoft seconds
+        /// </summary>
+        public int TimeoutSeconds { get; set; }
     }
 }
