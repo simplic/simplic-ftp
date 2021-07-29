@@ -39,15 +39,13 @@ namespace Simplic.Ftp.Service
             {
                 client.Connect();
 
-                Stream res = new MemoryStream();
-                client.Download(res, filename);
-                res.Position = 0;
+                using (var res = new MemoryStream())
+                {
+                    client.Download(res, filename);
+                    res.Position = 0;
 
-                var streamReader = new BinaryReader(res);
-
-                var text = streamReader.ReadBytes((int)res.Length);
-
-                return text;
+                    return res.ToArray();
+                }
             }
         }
 
