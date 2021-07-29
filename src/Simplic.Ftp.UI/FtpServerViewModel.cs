@@ -81,7 +81,8 @@ namespace Simplic.Ftp.UI
             get => new Dictionary<FtpServerConfigurationType, string>
             {
                 { FtpServerConfigurationType.Ftp, "FTP"},
-                {FtpServerConfigurationType.Sftp, "SFTP" }
+                {FtpServerConfigurationType.Sftp, "SFTP" },
+                {FtpServerConfigurationType.FluentFtp, "FluentFtp" }
             };
         }
     }

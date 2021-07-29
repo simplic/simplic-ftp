@@ -27,6 +27,7 @@ namespace Simplic.PlugIn.Ftp
 
             container.RegisterType<IFtpService, FtpService>("Ftp");
             container.RegisterType<IFtpService, SftpService>("Sftp");
+            container.RegisterType<IFtpService, FluentFtpService>("FluentFtp");
             container.RegisterType<IFtpServerWindow, FtpServerWindow>();
 
             container.RegisterType<INodeResolver, GenericNodeResolver<DeleteFileFromFtpServerNode>>(nameof(DeleteFileFromFtpServerNode));
