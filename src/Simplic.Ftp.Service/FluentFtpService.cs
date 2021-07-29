@@ -1,4 +1,6 @@
 ﻿using FluentFTP;
+using Simplic.Log;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -18,6 +20,12 @@ namespace Simplic.Ftp.Service
         /// <returns></returns>
         public bool DeleteFile(FtpServerConfiguration serverConfiguration, string filename)
         {
+            if (serverConfiguration == null)
+                throw new ArgumentNullException(nameof(serverConfiguration));
+
+            if (string.IsNullOrWhiteSpace(filename))
+                throw new ArgumentOutOfRangeException("Argument filename must not be null or whitespace");
+
             using (var client = new FtpClient(serverConfiguration.URI, serverConfiguration.Username, serverConfiguration.Password))
             {
                 client.Connect();
@@ -35,13 +43,24 @@ namespace Simplic.Ftp.Service
         /// <returns></returns>
         public byte[] DownloadFile(FtpServerConfiguration serverConfiguration, string filename)
         {
+            if (serverConfiguration == null)
+                throw new ArgumentNullException(nameof(serverConfiguration));
+
+            if (string.IsNullOrWhiteSpace(filename))
+                throw new ArgumentOutOfRangeException("Argument filename must not be null or whitespace");
+
             using (var client = new FtpClient(serverConfiguration.URI, serverConfiguration.Username, serverConfiguration.Password))
             {
                 client.Connect();
 
                 using (var res = new MemoryStream())
                 {
-                    client.Download(res, filename);
+                    if (!client.Download(res, filename))
+                    {
+                        LogManagerInstance.Instance.Error($"Could not download file `{filename}` for ftp server {serverConfiguration.InternalName}/{serverConfiguration.URI}");
+                        return null;
+                    }
+
                     res.Position = 0;
 
                     return res.ToArray();
@@ -57,11 +76,14 @@ namespace Simplic.Ftp.Service
         /// <returns></returns>
         public IList<string> GetDirectoryContent(FtpServerConfiguration serverConfiguration, string directory)
         {
+            if (serverConfiguration == null)
+                throw new ArgumentNullException(nameof(serverConfiguration));
+
             using (var client = new FtpClient(serverConfiguration.URI, serverConfiguration.Username, serverConfiguration.Password))
             {
                 client.Connect();
 
-                client.SetWorkingDirectory(directory);
+                client.SetWorkingDirectory(directory ?? "");
                 return client.GetListing().Select(x => x.FullName).ToList();
             }
         }
@@ -75,6 +97,15 @@ namespace Simplic.Ftp.Service
         /// <returns></returns>
         public bool RenameFile(FtpServerConfiguration serverConfiguration, string filename, string newFilename)
         {
+            if (serverConfiguration == null)
+                throw new ArgumentNullException(nameof(serverConfiguration));
+
+            if (string.IsNullOrWhiteSpace(filename))
+                throw new ArgumentOutOfRangeException("Argument filename must not be null or whitespace");
+
+            if (string.IsNullOrWhiteSpace(newFilename))
+                throw new ArgumentOutOfRangeException("Argument newFilename must not be null or whitespace");
+
             using (var client = new FtpClient(serverConfiguration.URI, serverConfiguration.Username, serverConfiguration.Password))
             {
                 client.Connect();
@@ -94,6 +125,15 @@ namespace Simplic.Ftp.Service
         /// <returns></returns>
         public bool UploadFile(FtpServerConfiguration serverConfiguration, byte[] file, string path, string fileName)
         {
+            if (serverConfiguration == null)
+                throw new ArgumentNullException(nameof(serverConfiguration));
+
+            if (string.IsNullOrWhiteSpace(fileName))
+                throw new ArgumentOutOfRangeException("Argument filename must not be null or whitespace");
+
+            if (file == null)
+                throw new ArgumentNullException(nameof(file));
+
             using (var client = new FtpClient(serverConfiguration.URI, serverConfiguration.Username, serverConfiguration.Password))
             {
                 client.Connect();

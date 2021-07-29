@@ -55,6 +55,9 @@
     <PackageReference Include="Simplic.Data">
       <Version>1.6.120.322</Version>
     </PackageReference>
+    <PackageReference Include="Simplic.Log">
+      <Version>7.2.421.426</Version>
+    </PackageReference>
     <PackageReference Include="SSH.NET">
       <Version>2016.1.0</Version>
     </PackageReference>
