@@ -13,6 +13,11 @@
         /// <summary>
         /// Sftp server type
         /// </summary>
-        Sftp = 1
+        Sftp = 1,
+
+        /// <summary>
+        /// Use fluent ftp connections for this type
+        /// </summary>
+        FluentFtp = 2
     }
 }
