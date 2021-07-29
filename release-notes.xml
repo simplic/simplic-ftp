@@ -2,4 +2,7 @@
   <ChangeSet guid="23592f6f-4569-46ac-adf1-75458d08db5e">
     <Change type="feature">Add the possibillity to set a custom timeout.</Change>
   </ChangeSet>
+  <ChangeSet>
+    <Change type="feature">Add the .net ftp fluent api service.</Change>
+  </ChangeSet>
 </ReleaseNotes>
