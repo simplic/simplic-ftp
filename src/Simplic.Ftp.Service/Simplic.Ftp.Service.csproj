@@ -42,12 +42,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FluentFtpService.cs" />
     <Compile Include="FtpServerConfigurationService.cs" />
     <Compile Include="FtpService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SftpService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="FluentFTP">
+      <Version>34.0.1</Version>
+    </PackageReference>
     <PackageReference Include="Simplic.Data">
       <Version>1.6.120.322</Version>
     </PackageReference>
