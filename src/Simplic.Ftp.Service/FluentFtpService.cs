@@ -28,7 +28,12 @@ namespace Simplic.Ftp.Service
 
             using (var client = new FtpClient(serverConfiguration.URI, serverConfiguration.Username, serverConfiguration.Password))
             {
-                client.Connect();
+                var profiles = client.AutoDetect();
+                
+                if (profiles.Any())
+                    client.Connect(profiles.OrderByDescending(x => (int)x.Protocols).FirstOrDefault());
+                else
+                    client.Connect();
 
                 client.DeleteFile(filename);
             }
@@ -51,7 +56,12 @@ namespace Simplic.Ftp.Service
 
             using (var client = new FtpClient(serverConfiguration.URI, serverConfiguration.Username, serverConfiguration.Password))
             {
-                client.Connect();
+                var profiles = client.AutoDetect();
+
+                if (profiles.Any())
+                    client.Connect(profiles.OrderByDescending(x => (int)x.Protocols).FirstOrDefault());
+                else
+                    client.Connect();
 
                 using (var res = new MemoryStream())
                 {
@@ -81,7 +91,12 @@ namespace Simplic.Ftp.Service
 
             using (var client = new FtpClient(serverConfiguration.URI, serverConfiguration.Username, serverConfiguration.Password))
             {
-                client.Connect();
+                var profiles = client.AutoDetect();
+
+                if (profiles.Any())
+                    client.Connect(profiles.OrderByDescending(x => (int)x.Protocols).FirstOrDefault());
+                else
+                    client.Connect();
 
                 client.SetWorkingDirectory(directory ?? "");
                 return client.GetListing().Select(x => x.FullName).ToList();
@@ -108,7 +123,12 @@ namespace Simplic.Ftp.Service
 
             using (var client = new FtpClient(serverConfiguration.URI, serverConfiguration.Username, serverConfiguration.Password))
             {
-                client.Connect();
+                var profiles = client.AutoDetect();
+
+                if (profiles.Any())
+                    client.Connect(profiles.OrderByDescending(x => (int)x.Protocols).FirstOrDefault());
+                else
+                    client.Connect();
 
                 client.Rename(filename, newFilename);
             }
@@ -136,7 +156,13 @@ namespace Simplic.Ftp.Service
 
             using (var client = new FtpClient(serverConfiguration.URI, serverConfiguration.Username, serverConfiguration.Password))
             {
-                client.Connect();
+                var profiles = client.AutoDetect();
+
+                if (profiles.Any())
+                    client.Connect(profiles.OrderByDescending(x => (int)x.Protocols).FirstOrDefault());
+                else
+                    client.Connect();
+
                 if (!client.DirectoryExists(path))
                     client.CreateDirectory(path);
 
