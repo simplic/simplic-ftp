@@ -11,6 +11,32 @@ namespace Simplic.Ftp.Service
     public class SftpService : IFtpService
     {
         /// <summary>
+        /// Create SftpClient
+        /// </summary>
+        /// <param name="uri">Uri to parse</param>
+        /// <param name="username">Sftp username</param>
+        /// <param name="password">Sftp password</param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        private SftpClient GetClient(string uri, string username, string password)
+        {
+            if (uri.Contains(":"))
+            { 
+                var splitted = uri.Split(':');
+
+                var url = splitted[0];
+
+                // TODO: Add check
+                if (!int.TryParse(splitted[1], out int port))
+                    throw new Exception($"Could not parse port to int: {splitted[1]}");
+
+                return new SftpClient(url, port, username, password);
+            }
+
+            return new SftpClient(uri, username, password);
+        }
+
+        /// <summary>
         /// Deletes a file.
         /// </summary>
         /// <param name="serverConfiguration">The ftp server configuration</param>
@@ -18,7 +44,7 @@ namespace Simplic.Ftp.Service
         /// <returns></returns>
         public bool DeleteFile(FtpServerConfiguration serverConfiguration, string filename)
         {
-            using (SftpClient sftp = new SftpClient(serverConfiguration.URI, serverConfiguration.Username, serverConfiguration.Password))
+            using (SftpClient sftp = GetClient(serverConfiguration.URI, serverConfiguration.Username, serverConfiguration.Password))
             {
                 if (serverConfiguration.Timeout != 0)
                     sftp.OperationTimeout = TimeSpan.FromMilliseconds(serverConfiguration.Timeout);
@@ -37,7 +63,7 @@ namespace Simplic.Ftp.Service
         /// <returns></returns>
         public byte[] DownloadFile(FtpServerConfiguration serverConfiguration, string filename)
         {
-            using (SftpClient sftp = new SftpClient(serverConfiguration.URI, serverConfiguration.Username, serverConfiguration.Password))
+            using (SftpClient sftp = GetClient(serverConfiguration.URI, serverConfiguration.Username, serverConfiguration.Password))
             {
                 if (serverConfiguration.Timeout != 0)
                     sftp.OperationTimeout = TimeSpan.FromMilliseconds(serverConfiguration.Timeout);
@@ -63,7 +89,7 @@ namespace Simplic.Ftp.Service
         public IList<string> GetDirectoryContent(FtpServerConfiguration serverConfiguration, string directory)
         {
             var filenames = new List<string>();
-            using (SftpClient sftp = new SftpClient(serverConfiguration.URI, serverConfiguration.Username, serverConfiguration.Password))
+            using (SftpClient sftp = GetClient(serverConfiguration.URI, serverConfiguration.Username, serverConfiguration.Password))
             {
                 if (serverConfiguration.Timeout != 0)
                     sftp.OperationTimeout = TimeSpan.FromMilliseconds(serverConfiguration.Timeout);
@@ -89,7 +115,7 @@ namespace Simplic.Ftp.Service
         /// <returns></returns>
         public bool RenameFile(FtpServerConfiguration serverConfiguration, string filename, string newFilename)
         {
-            using (SftpClient sftp = new SftpClient(serverConfiguration.URI, serverConfiguration.Username, serverConfiguration.Password))
+            using (SftpClient sftp = GetClient(serverConfiguration.URI, serverConfiguration.Username, serverConfiguration.Password))
             {
                 if (serverConfiguration.Timeout != 0)
                     sftp.OperationTimeout = TimeSpan.FromMilliseconds(serverConfiguration.Timeout);
@@ -121,7 +147,7 @@ namespace Simplic.Ftp.Service
             var filepath = path + fileName;
 
             Console.WriteLine($"Begin SSH.Net upload to {serverConfiguration.URI}{filepath}");
-            using (SftpClient sftp = new SftpClient(serverConfiguration.URI, serverConfiguration.Username, serverConfiguration.Password))
+            using (SftpClient sftp = GetClient(serverConfiguration.URI, serverConfiguration.Username, serverConfiguration.Password))
             {
                 if (serverConfiguration.Timeout != 0)
                     sftp.OperationTimeout = TimeSpan.FromMilliseconds(serverConfiguration.Timeout);
