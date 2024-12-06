@@ -39,7 +39,7 @@ namespace Simplic.Ftp.Flow
         /// <param name="scope"></param>
         /// <returns></returns>
         public override bool Execute(IFlowRuntimeService runtime, DataPinScope scope)
-        {
+        { 
             if (ftpServerService == null)
                 ftpServerService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IFtpServerConfigurationService>();
 
