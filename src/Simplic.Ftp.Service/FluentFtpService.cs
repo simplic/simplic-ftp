@@ -55,7 +55,7 @@ namespace Simplic.Ftp.Service
 
                 using (var res = new MemoryStream())
                 {
-                    if (!client.Download(res, filename))
+                    if (!client.DownloadStream(res, filename))
                     {
                         LogManagerInstance.Instance.Error($"Could not download file `{filename}` for ftp server {serverConfiguration.InternalName}/{serverConfiguration.URI}");
                         return null;
@@ -141,8 +141,9 @@ namespace Simplic.Ftp.Service
                     client.CreateDirectory(path);
 
                 client.SetWorkingDirectory(path);
-                client.Upload(file, fileName);
+                client.UploadBytes(file, fileName);
             }
+
             return true;
         }
     }

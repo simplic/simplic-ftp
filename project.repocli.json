@@ -32,6 +32,21 @@
       "type": "copy",
       "target": "src\\bin\\Debug\\Simplic.Ftp.Flow.dll",
       "destination": "/bin/Simplic.Ftp.Flow.dll"
+    },
+    {
+      "type": "copy",
+      "target": "src\\bin\\Debug\\Renci.SshNet.dll",
+      "destination": "/bin/Renci.SshNet.dll"
+    },
+    {
+      "type": "copy",
+      "target": "src\\bin\\Debug\\FluentFTP.dll",
+      "destination": "/bin/FluentFTP.dll"
+    },
+    {
+      "type": "copy",
+      "target": "src\\bin\\Debug\\BouncyCastle.Cryptography.dll",
+      "destination": "/bin/BouncyCastle.Cryptography.dll"
     }
   ]
 }
